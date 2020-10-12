@@ -1,0 +1,24 @@
+const express = require('express')
+const path = require('path')
+const todoRoutes = require('./routes/todo')
+const sequelize = require('./utils/database')
+//git push!!!
+const app = express()
+const PORT = process.env.PORT || 3000
+
+app.use(express.static(path.join(__dirname, 'public')))
+app.use('/api/todo', todoRoutes)
+
+app.use((request, response, next) => {
+    response.sendFile('/index.html')
+})
+ 
+async function start() {
+    try {
+        await sequelize.sync()
+        app.listen(PORT)
+    } catch (e) {
+        console.log(e)
+    }
+}
+start()
