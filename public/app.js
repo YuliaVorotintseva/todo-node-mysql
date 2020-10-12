@@ -1,14 +1,9 @@
 new Vue({
     el: '#app',
-    vuetify: new Vuetify({
-        theme: {
-            dark: true
-        },
-    }),
+    vuetify: new Vuetify(),
     data() {
         return {
-            theme: this.$vuetify.theme.themes.dark,
-            isDark: true,
+            dark: false,
             show: true,
             todoTitle: '',
             todos: []
@@ -33,7 +28,6 @@ new Vue({
             })
             .then(response => response.json())
             .then(({todo}) => {
-                console.log(todo)
                 this.todos.push(todo)
                 this.todoTitle = ''
             })

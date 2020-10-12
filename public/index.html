@@ -21,21 +21,20 @@
 
 <body>
   <div id="app" v-cloak>
-    <v-app>
-      <v-card>
+    <v-app :dark="dark">
+      <v-card :dark="dark">
         <v-toolbar color="blue darken-4" dark>
-          <v-app-bar-nav-icon></v-app-bar-nav-icon>
           <v-toolbar-title>Список дел</v-toolbar-title>
           <v-spacer></v-spacer>
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn icon @click="show = !show" v-on="on">
-                <v-icon v-model="isDark" @click="isDark = !isDark">{{ show ? 'check_circle' : 'check_circle_outline' }}
+                <v-icon v-model="dark" @click="dark = !dark">{{ show ? '&#9681;' : '&#9680;' }}
                 </v-icon>
               </v-btn>
             </template>
-            <span>{{isDark ? 'Светлая тема' : 'Темная тема'}}</span>
+            <span>{{dark ? 'Светлая тема' : 'Темная тема'}}</span>
           </v-tooltip>
         </v-toolbar>
 
@@ -54,7 +53,7 @@
 
                     <v-flex xs12>
                       <v-text-field clearable v-model="todoTitle" id="newTodo" name="newTodo"
-                        label="Введите название задачи" @keyup.enter="addTodo" :dark="isDark">
+                        label="Введите название задачи" @keyup.enter="addTodo" :dark="dark">
                       </v-text-field>
                     </v-flex>
                   </v-container>
@@ -65,27 +64,27 @@
                     Ваши задачи
                   </v-subheader>
                   <div v-for="(todo, i) in todos" :key="i">
-                    <v-list-tile avatar>
-                      <v-list-tile-action>
+                    <v-list-item>
+                      <v-list-item-action>
                         <v-checkbox
                           v-if="!todo.done"
                           v-model="todo.done"
                           @change="completeTodo(todo.id)"
-                          :dark="isDark"></v-checkbox>
-                      </v-list-tile-action>
-                      <v-list-tile-content>
-                        <v-list-tile-title :class="{done: todo.done}">
+                          :dark="dark"></v-checkbox>
+                      </v-list-item-action>
+                      <v-list-item-content>
+                        <v-list-item-title :class="{done: todo.done}">
                           {{todo.title | capitalize}}
-                        </v-list-tile-title>
-                        <v-list-tile-sub-title>
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
                           Добавлено в: {{todo.createdAt | date(true)}}
                           (изменено в {{todo.updatedAt | date(true)}})
-                        </v-list-tile-sub-title>
-                      </v-list-tile-content>
+                        </v-list-item-subtitle>
+                      </v-list-item-content>
                       <v-btn icon ripple color="red" @click="removeTodo(todo.id)">
-                        <v-icon class="white--text">close</v-icon>
+                        <v-icon class="white--text">&#10008;</v-icon>
                       </v-btn>
-                    </v-list-tile>
+                    </v-list-item>
                   </div>
                 </v-list>
               </v-card>
@@ -100,5 +99,4 @@
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   <script src="/app.js"></script>
 </body>
-
 </html>

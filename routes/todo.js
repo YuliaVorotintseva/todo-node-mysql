@@ -5,7 +5,8 @@ const router = Router()
 router.get('/', async (request, response) => {
     try {
         const todos = await Todo.findAll()
-        response.status(200).json(todos)
+        if(todos.length) response.status(200).json(todos)
+        else response.status(200).json({})
     } catch(e) {
         response.status(500).json({
             message: 'Server error'
